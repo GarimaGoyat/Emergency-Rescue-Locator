@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: emergency-rescue-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: GIN_MODE
+        value: release
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRY_HOURS
+        value: 24
+      - key: CORS_ORIGINS
+        sync: false
+      - key: RATE_LIMIT_REQUESTS
+        value: 100
+      - key: RATE_LIMIT_DURATION
+        value: 1m
